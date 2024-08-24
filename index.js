@@ -21,7 +21,9 @@ let Site = mongoose.model('Site', siteSchema);
 
 const SubmitAndSaveSite = (site, done) => {
   
+  try{
   let randomNum = Math.floor(Math.random() * 1000);
+  const attemptedURL = new URL(site)
 
   let newSite = new Site({
     original_url: site,
@@ -31,6 +33,10 @@ const SubmitAndSaveSite = (site, done) => {
   
   //model.prototype.save() no longer accepts a callback
   newSite.save().then(function(data){ console.log(newSite.short_url); done(null, data)}).catch(function(err){ console.log(err)});
+  }
+  catch(err){
+    done(null, {error:  "invalid url"})
+  }
 }
 
 const FindByShortURL = (shorturl, done) => {
@@ -69,7 +75,7 @@ app.post('/api/shorturl', function(req, res){
       })
     }
     catch(err){
-      res.json({error: 'invalid url'});
+      res.json(/* { error: 'invalid url'} */data);
     }
 
     
