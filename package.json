@@ -11,6 +11,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "is-url-http": "^2.3.8",
     "mongoose": "^8.5.3"
   },
   "license": "MIT"
